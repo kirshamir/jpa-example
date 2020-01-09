@@ -7,7 +7,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import java.time.LocalDate;
 
 @SpringBootApplication
@@ -27,6 +26,38 @@ public class FirstJpaDemoApplication {
 			// fetch all persons
 			System.out.println("findAll():");
 			for (Person p : repository.findAll()) {
+				System.out.println(p);
+			}
+
+            System.out.println("findAll born between 1980 and 2000:");
+            for (Person p : repository.findAllByBirthDateBetween(
+					LocalDate.of(1980,1,1),
+					LocalDate.of(2000,12,31)
+            )) {
+                System.out.println(p);
+            }
+
+            System.out.println("findAll born on December:");
+            for (Person p : repository.findAllByBirthDateMonth(12)) {
+                System.out.println(p);
+            }
+
+            System.out.println("findAll born in 1998:");
+            for (Person p : repository.findAllByBirthDateYear(1998)) {
+                System.out.println(p);
+            }
+
+			System.out.println("findAll Female:");
+			for (Person p : repository.findAllByGender(Gender.FEMALE)) {
+				System.out.println(p);
+			}
+
+			System.out.println("findAll Female born between 1980-2000:");
+			for (Person p : repository.findAllByBirthDateBetweenAndGender(
+					LocalDate.of(1980,1,1),
+					LocalDate.of(2000,12,31),
+					Gender.FEMALE
+			)) {
 				System.out.println(p);
 			}
 		};
